@@ -1,0 +1,4 @@
+# Ignore venv folder
+venv/
+# Ignore the instructions for the project
+indications.md
