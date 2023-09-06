@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Person(models.Model):
@@ -8,6 +9,7 @@ class Person(models.Model):
     age = models.IntegerField(default=0)
     address = models.CharField(max_length=200, default='Sin direccion')
     city = models.CharField(max_length=50, default='Sin ciudad')
+    created_at = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return f'{self.name} {self.last_name}'
@@ -20,6 +22,7 @@ class User(models.Model):
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=16)
     email = models.EmailField(max_length=254)
+    created_at = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return f'{self.username}'
@@ -29,26 +32,20 @@ class User(models.Model):
         
 class QuestionCategory(models.Model):
     name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(timezone.now)
     
     def __str__(self):
         return f'{self.name}'
     
     class Meta:
         db_table = 'question_category'
-        
-    
-    def __str__(self):
-        return f'{self.vote}'
-    
-    class Meta:
-        db_table = 'vote'
     
 class Question(models.Model):
     title = models.CharField(max_length=200)
     question = models.TextField()
     category = models.ForeignKey(QuestionCategory, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete = models.CASCADE)
     
     def __str__(self):
@@ -61,8 +58,8 @@ class Question(models.Model):
 
 class Answer(models.Model):
     answer = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     
@@ -74,8 +71,8 @@ class Answer(models.Model):
 
 class Comment(models.Model):
     comment = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
@@ -85,11 +82,12 @@ class Comment(models.Model):
         db_table = 'comment'
         
 class Vote(models.Model):
-    # upvote = 1 and downvote = 0
-    vote = models.IntegerField(default=1)
+    vote = models.CharFiled(max_length=10) # upvote and downvote 
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return f'Has been voted {self.vote}'
