@@ -1,14 +1,37 @@
 <!DOCTYPE html>
+{% load static tailwind_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock  %}</title>
+    <title>{% block title %}{% endblock %}</title>
+    {% tailwind_css %}
 </head>
-<body>
-    {% block header %} {% endblock %}
-    {% block content %} {% endblock %}
-    {% block footer %} {% endblock %}
-    
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-blue-500 py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-white text-2xl font-semibold">QuestHub</a>
+            <nav>
+                <ul class="space-x-4">
+                    <li><a href="#" class="text-white hover:underline">Inicio</a></li>
+                    <li><a href="#" class="text-white hover:underline">Acerca de</a></li>
+                    <li><a href="#" class="text-white hover:underline">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="container mx-auto my-8 px-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-500 py-4 text-white text-center">
+        <div class="container mx-auto">
+            &copy; 2023 QuestHub. Todos los derechos reservados.
+        </div>
+    </footer>
 </body>
 </html>

@@ -69,7 +69,7 @@ class Answer(models.Model):
     class Meta:
         db_table = 'answer'
 
-class Comment(models.Model):
+class CommentQuestion(models.Model):
     comment = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
@@ -79,10 +79,22 @@ class Comment(models.Model):
         return f'{self.comment}'
     
     class Meta:
-        db_table = 'comment'
+        db_table = 'comment_question'
+        
+class CommentAnswer(models.Model):
+    comment = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f'{self.comment}'
+    
+    class Meta:
+        db_table = 'comment_answer'
         
 class Vote(models.Model):
-    vote = models.CharFiled(max_length=10) # upvote and downvote 
+    vote = models.CharField(max_length=10) # upvote and downvote 
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)

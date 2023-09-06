@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Quest{% endblock%}
+
+{% block content %}
+<div class="bg-white p-4 rounded shadow-md">
+    <!-- Título de la Pregunta -->
+    <h2 class="text-2xl font-semibold mb-4">Pregunta</h2>
+
+    <!-- Pregunta -->
+    <div class="mb-4">
+        <p class="text-gray-700">Contenido pregunta</p>
+    </div>
+
+    <!-- Votaciones de la Pregunta -->
+    <div class="mb-4">
+        <p class="text-gray-600">Votaciones: 20</p>
+    </div>
+
+    <!-- Lista de Respuestas -->
+    <h3 class="text-xl font-semibold mb-4">Respuestas</h3>
+    <ul class="space-y-4">
+        <!-- Respuesta 1 -->
+        <li class="border p-4 rounded-lg">
+            <p class="text-gray-700">Esta es una respuesta a la pregunta.</p>
+            <div class="mt-2 flex items-center">
+                <button class="text-gray-600 hover:text-blue-500">
+                    Votar <span class="text-sm">(5)</span>
+                </button>
+            </div>
+        </li>
+
+        <!-- Respuesta 2 -->
+        <li class="border p-4 rounded-lg">
+            <p class="text-gray-700">Aquí tienes otra respuesta a la pregunta.</p>
+            <div class="mt-2 flex items-center">
+                <button class="text-gray-600 hover:text-blue-500">
+                    Votar <span class="text-sm">(3)</span>
+                </button>
+            </div>
+        </li>
+    </ul>
+
+    <!-- Botón para publicar una nueva respuesta -->
+    <div class="mt-8">
+        <a href="#" class="text-blue-500 hover:underline">Publicar una respuesta</a>
+    </div>
+</div>
+{% endblock%}
+    

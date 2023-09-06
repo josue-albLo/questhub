@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Pubs{% endblock%}
+{% block content %}
+<div class="bg-white p-4 rounded shadow-md">
+    <h2 class="text-2xl font-semibold mb-4">Preguntas Recientes</h2>
+
+    <!-- Lista de preguntas -->
+    <ul class="space-y-4">
+        <!-- Pregunta 1 -->
+        <li class="border p-4 rounded-lg">
+            <h3 class="text-xl font-semibold">¿Cómo aprender programación web?</h3>
+            <p class="text-gray-700">Estoy interesado en aprender programación web. ¿Por dónde debería empezar?</p>
+            <div class="mt-2 flex items-center">
+                <a href="#" class="text-blue-500 hover:underline">Ver respuestas (8)</a>
+                <button class="ml-2 text-gray-600 hover:text-blue-500">
+                    Votar <span class="text-sm">(12)</span>
+                </button>
+            </div>
+        </li>
+
+        <!-- Pregunta 2 -->
+        <li class="border p-4 rounded-lg">
+            <h3 class="text-xl font-semibold">¿Cuál es el lenguaje de programación más utilizado?</h3>
+            <p class="text-gray-700">Me gustaría saber cuál es el lenguaje de programación más popular en la actualidad.</p>
+            <div class="mt-2 flex items-center">
+                <a href="#" class="text-blue-500 hover:underline">Ver respuestas (5)</a>
+                <button class="ml-2 text-gray-600 hover:text-blue-500">
+                    Votar <span class="text-sm">(9)</span>
+                </button>
+            </div>
+        </li>
+
+        <!-- Pregunta 3 -->
+        <li class="border p-4 rounded-lg">
+            <h3 class="text-xl font-semibold">¿Cómo optimizar el rendimiento de un sitio web?</h3>
+            <p class="text-gray-700">Necesito consejos sobre cómo mejorar la velocidad y rendimiento de mi sitio web.</p>
+            <div class="mt-2 flex items-center">
+                <a href="#" class="text-blue-500 hover:underline">Ver respuestas (3)</a>
+                <button class="ml-2 text-gray-600 hover:text-blue-500">
+                    Votar a favor <span class="text-sm">(7)</span>
+                </button>
+            </div>
+        </li>
+    </ul>
+
+    <!-- Botón para publicar una nueva pregunta -->
+    <div class="mt-8">
+        <a href="#" class="text-blue-500 hover:underline">Publicar una nueva pregunta</a>
+    </div>
+</div>
+{% endblock %}
