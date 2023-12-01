@@ -1,49 +1,69 @@
 {% extends 'base.html' %}
 
 {% block title %}Quest{% endblock%}
-
+{% block header%} 
+<div class="container mx-auto flex justify-between items-center">
+    <a href="#" class="text-white text-2xl font-semibold">QuestHub</a>
+    <nav>
+        <ul class="space-x-4">
+            <li><a href="{% url 'quest:main' %}" class="text-white hover:underline">Inicio</a></li>
+            <li><a href="#" class="text-white hover:underline">Acerca de</a></li>
+            <li><a href="#" class="text-white hover:underline">Contacto</a></li>
+        </ul>
+    </nav>
+</div>
+{% endblock%}
 {% block content %}
 <div class="bg-white p-4 rounded shadow-md">
     <!-- Título de la Pregunta -->
-    <h2 class="text-2xl font-semibold mb-4">Pregunta</h2>
+    <h2 class="text-2xl font-semibold mb-4">{{question.title}}</h2>
 
     <!-- Pregunta -->
     <div class="mb-4">
-        <p class="text-gray-700">Contenido pregunta</p>
+        <p class="text-gray-700">{{question.question}}</p>
     </div>
 
     <!-- Votaciones de la Pregunta -->
     <div class="mb-4">
-        <p class="text-gray-600">Votaciones: 20</p>
+        <p class="text-gray-600">
+            
+            {% if count %}
+                {{count}}
+            {% else %}
+                Sin votos
+            {% endif %}
+                
+        </p>
     </div>
 
     <!-- Lista de Respuestas -->
     <h3 class="text-xl font-semibold mb-4">Respuestas</h3>
     <ul class="space-y-4">
         <!-- Respuesta 1 -->
+        
+        {% if answers %}
+        {% for answer in answers %}
         <li class="border p-4 rounded-lg">
-            <p class="text-gray-700">Esta es una respuesta a la pregunta.</p>
+            <p class="text-gray-700">{{answer.answer}}</p>
+            <p class="text-gray-700">Fecha de creacion: {{answer.created_at}}</p>
             <div class="mt-2 flex items-center">
                 <button class="text-gray-600 hover:text-blue-500">
                     Votar <span class="text-sm">(5)</span>
                 </button>
             </div>
-        </li>
-
-        <!-- Respuesta 2 -->
+        </li> 
+        {% endfor %}
+        {% else %}
         <li class="border p-4 rounded-lg">
-            <p class="text-gray-700">Aquí tienes otra respuesta a la pregunta.</p>
-            <div class="mt-2 flex items-center">
-                <button class="text-gray-600 hover:text-blue-500">
-                    Votar <span class="text-sm">(3)</span>
-                </button>
-            </div>
+            <p class="text-gray-700">No hay respuestas para esta pregunta.</p>
         </li>
+        {% endif %}  
     </ul>
 
     <!-- Botón para publicar una nueva respuesta -->
     <div class="mt-8">
-        <a href="#" class="text-blue-500 hover:underline">Publicar una respuesta</a>
+        <a href="{% url 'quest:createanswer' pk_question=question.id pk_user=user_id %}" class="text-blue-500 hover:underline">Publicar una respuesta</a>
+        <div id="answerForm"></div>
     </div>
 </div>
 {% endblock%}

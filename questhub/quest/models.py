@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-# Create your models here.
 class Person(models.Model):
     name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50, blank=True)
@@ -19,7 +18,7 @@ class Person(models.Model):
     
 class User(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    username = models.CharField(max_length=50)
+    username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=16)
     email = models.EmailField(max_length=254)
     created_at = models.DateTimeField(default=timezone.now)
@@ -28,8 +27,7 @@ class User(models.Model):
         return f'{self.username}'
     
     class Meta:
-        db_table = 'user'
-        
+        db_table = 'user' 
 class QuestionCategory(models.Model):
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(timezone.now)
@@ -105,5 +103,31 @@ class Vote(models.Model):
         return f'Has been voted {self.vote}'
     
     class Meta:
-        db_table = 'vote'
+        db_table = 'vote_question'
+        
+class VoteAnswer(models.Model):
+    vote = models.CharField(max_length=10) # upvote and downvote 
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return f'Has been voted {self.vote}'
+    
+    class Meta:
+        db_table = 'vote_answer'
+        
+class VoteQuestion(models.Model):
+    vote = models.CharField(max_length=10) # upvote and downvote 
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return f'Has been voted {self.vote}'
+    
+    class Meta:
+        db_table = 'question_vote'
     
