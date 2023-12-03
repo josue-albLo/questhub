@@ -2,7 +2,7 @@
 {% block title %}Pubs{% endblock%}
 {% block header%} 
 <div class="container mx-auto flex justify-between items-center">
-    <a href="#" class="text-white text-2xl font-semibold">QuestHub</a>
+    <p class="text-white text-2xl font-semibold">QuestHub</p>
     <nav class="flex">
         <ul class="space-x-4">
             <li><a href="{% url 'quest:main' id=id name=user %}" class="text-white hover:underline">Inicio</a></li>
@@ -33,15 +33,14 @@
             </div>
         </li>
         {% endfor %}
+        {% if messages %}
+            <div class="messages">
+            {% for message in messages %}
+                <span {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+            {% endfor %}
+            </div>
+        {% endif %}
     <!-- Botón para publicar una nueva pregunta -->
-    {% if messages %}
-<div class="messages">
-    {% for message in messages %}
-    <span {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
-    {% endfor %}
-</div>
-{% endif %}
-
     <div class="mt-8">
         <a href="{% url 'quest:createquestion' id %}" class="text-blue-500 hover:underline">Publicar una nueva pregunta</a>
     </div>

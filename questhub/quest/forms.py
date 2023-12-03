@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import User, Question, Answer, VoteQuestion
+from .models import User, Question, Answer, VoteQuestion, VoteAnswer
 
 class LoginForm(ModelForm):
     class Meta:
@@ -20,3 +20,8 @@ class VoteQuestionForm(ModelForm):
     class Meta:
         model = VoteQuestion
         fields = ['vote','author', 'question']
+
+class VoteAnswerForm(ModelForm):
+    class Meta:
+        model = VoteAnswer
+        fields = ['vote','author', 'answer']

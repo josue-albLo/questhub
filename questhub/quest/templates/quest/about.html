@@ -3,7 +3,7 @@
 {% block title %}Acerca de{% endblock %}
 {% block header %}
 <div class="container mx-auto flex justify-between items-center">
-    <a href="#" class="text-white text-2xl font-semibold">QuestHub</a>
+    <p class="text-white text-2xl font-semibold">QuestHub</p>
     <nav>
         <ul class="space-x-4">
             <li><a href="{% url 'quest:main' id=id name=name%}" class="text-white hover:underline">Inicio</a></li>
@@ -15,5 +15,15 @@
 {% endblock %}
 
 {% block content %}
-<h2>Acerca de</h2>
+<div class="container mx-auto">
+    <div class="flex justify-center items-center">
+        <div class="w-1/2">
+            <h1 class="text-4xl font-semibold text-center">Acerca de</h1>
+            <p class="text-justify">QuestHub es una plataforma de preguntas y respuestas, donde los usuarios pueden hacer preguntas y responder a las preguntas de otros usuarios.</p>
+            <p class="text-justify">QuestHub fue desarrollado por 
+                <a class="text-cyan-800 hover:caret-yellow-300"  
+                href="https://github.com/josue-albLo">Josué Guevara Lopez</a> como proyecto personal.</p>
+        </div>
+    </div>
+</div>
 {% endblock %}

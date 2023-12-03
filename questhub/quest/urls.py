@@ -16,4 +16,5 @@ urlpatterns = [
     path('votequestion/<int:pk_question>/<int:pk_user>', views.vote_question, name='votequestion'),
     path('about/<int:user_id>', views.about, name='about'),
     path('contact/<int:user_id>', views.contact, name='contact'),
+    path('voteanswer/<int:pk_answer>/<int:pk_user>', views.vote_answer, name='voteanswer'),
 ]

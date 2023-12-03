@@ -3,8 +3,8 @@ from django.urls import reverse
 from django.db.models import Count
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
-from .forms import LoginForm, QuestionsForm, AnswerForm, VoteQuestionForm
-from .models import User, Question, Answer, QuestionCategory, Person, VoteQuestion
+from .forms import LoginForm, QuestionsForm, AnswerForm, VoteQuestionForm, VoteAnswerForm
+from .models import User, Question, Answer, QuestionCategory, Person, VoteQuestion, VoteAnswer
 
 # Create your views here.
 
@@ -68,9 +68,9 @@ def procesing_question(request, pk):
         return redirect(url)
     
 def answer(request, id_question, pk_user):
-    question = Question.objects.get(pk=id_question)
+    question = Question.objects.annotate(count_votes = Count('votequestion__id', distinct=True)).get(pk=id_question)
     person = User.objects.get(pk=pk_user)
-    answers_question = Answer.objects.filter(question=question)
+    answers_question = Answer.objects.annotate(count_votes= Count('voteanswer__id', distinct=True)).filter(question=id_question)
     context = {'question': question, 'answers': answers_question, 'id': pk_user, 'name': person.person.name}
     return render(request, 'quest/answers.html', context)
 
@@ -122,3 +122,22 @@ def contact(request, user_id):
     user = User.objects.get(pk=user_id)
     context = {'id': user_id, 'name': user.person.name}
     return render(request, 'quest/contact.html', context)
+
+def vote_answer(request, pk_answer, pk_user):
+    post_data = request.POST.copy()
+    user = User.objects.get(pk=pk_user)
+    post_data['answer'] = pk_answer
+    post_data['author'] = pk_user
+    post_data['vote'] = "upvote"
+    
+    verify_vote = VoteAnswer.objects.filter(answer=pk_answer, author=pk_user)
+    
+    form_vote = VoteAnswerForm(post_data)
+    if(form_vote.is_valid() and not verify_vote):
+        form_vote.save()
+        print("Voto exitoso")
+        messages.success(request, 'Voto exitoso')
+        return redirect(reverse('quest:main', args=[user.person.id, user.person.name]))
+    else:
+        messages.error(request, 'Error al votar, ya has votado')
+        return redirect(reverse('quest:main', args=[user.person.id, user.person.name]))

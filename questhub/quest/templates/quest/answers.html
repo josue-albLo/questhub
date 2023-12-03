@@ -3,7 +3,7 @@
 {% block title %}Quest{% endblock%}
 {% block header%} 
 <div class="container mx-auto flex justify-between items-center">
-    <a href="#" class="text-white text-2xl font-semibold">QuestHub</a>
+    <p class="text-white text-2xl font-semibold">QuestHub</p>
     <nav>
         <ul class="space-x-4">
             <li><a href="{% url 'quest:main' id=id name=name%}" class="text-white hover:underline">Inicio</a></li>
@@ -27,8 +27,8 @@
     <div class="mb-4">
         <p class="text-gray-600">
             
-            {% if count %}
-                {{count}}
+            {% if question.count_votes %}
+                <span>No. Votos {{question.count_votes}}</span>
             {% else %}
                 Sin votos
             {% endif %}
@@ -46,7 +46,13 @@
         <li class="border p-4 rounded-lg">
             <p class="text-gray-700">{{answer.answer}}</p>
             <p class="text-gray-700">Fecha de creacion: {{answer.created_at}}</p>
-            <div class="mt-2 flex items-center">
+            <div class="mt-2 flex-1 items-center">
+                {% if answer.count_votes %}
+                <a href="{% url 'quest:voteanswer' pk_answer=answer.id pk_user=id %}">Votar ({{answer.count_votes}})</a>
+                {% else %}
+                <span>Sin votos</span>
+                <a href="{% url 'quest:voteanswer' pk_answer=answer.id pk_user=id %}">Votar</a>
+                {% endif %}
             </div>
         </li> 
         {% endfor %}
