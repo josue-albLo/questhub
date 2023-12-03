@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Acerca de{% endblock %}
+{% block header %}
+<div class="container mx-auto flex justify-between items-center">
+    <a href="#" class="text-white text-2xl font-semibold">QuestHub</a>
+    <nav>
+        <ul class="space-x-4">
+            <li><a href="{% url 'quest:main' id=id name=name%}" class="text-white hover:underline">Inicio</a></li>
+            <li><a href="{% url 'quest:about' user_id=id %}" class="text-white hover:underline">Acerca de</a></li>
+            <li><a href="{% url 'quest:contact' user_id=id %}" class="text-white hover:underline">Contacto</a></li>
+        </ul>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<h2>Acerca de</h2>
+{% endblock %}
